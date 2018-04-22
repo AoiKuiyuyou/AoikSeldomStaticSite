@@ -1,0 +1,21 @@
+{% extends "root://src/_base/page_base.html" %}
+
+{% block head_title %}{{title}}{% endblock %}
+
+{% block main_inner %}
+{{ super() }}
+
+<article class="post_content_block markdown-body">
+  <h1>{{title}}</h1>
+  {% for tag in tags %}
+  <h2 class="tag_title"><a href="{{tags_tag_url(tag)}}">{{tag if tag else 'other'}}</a></h2>
+  <ul class="post_title_list">
+    {% for post_meta in map_tag_to_post_meta_array[tag] %}
+    <li>
+    <a href="{{posts_post_url(post_meta.dir_name, post_meta.index_file)}}">{{post_meta.title}}</a> {{' - ' + post_meta.create_moment.format(post_date_format) if not is_nan(post_meta.create_moment.unix()) else ''}}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endfor %}
+</article>
+{% endblock %}

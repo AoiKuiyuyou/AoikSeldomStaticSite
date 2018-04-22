@@ -1,0 +1,35 @@
+{
+	"folders":
+	[
+		{
+			"file_exclude_patterns":
+			[
+				"src/tags/tags_info.json"
+			],
+			"folder_exclude_patterns":
+			[
+				"api",
+				"api/*"
+			],
+			"folder_include_patterns":
+			[
+				"tools",
+				"tools/*",
+				"src",
+				"src/*"
+			],
+			"path": "../.."
+		}
+	],
+	"settings":
+	{
+		"auto_indent": true,
+		"detect_indentation": true,
+		"smart_indent": true,
+		"tab_size": 4,
+		"translate_tabs_to_spaces": false,
+		"trim_automatic_white_space": true,
+		"trim_trailing_white_space_on_save": true,
+		"use_tab_stops": true
+	}
+}

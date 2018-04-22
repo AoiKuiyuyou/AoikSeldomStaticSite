@@ -1,0 +1,4 @@
+PyMySQL==0.8.0
+SQLAlchemy==1.2.6
+flask==0.12.2
+flask_limiter==1.0.1

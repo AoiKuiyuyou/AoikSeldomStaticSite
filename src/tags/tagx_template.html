@@ -1,0 +1,18 @@
+{% extends "root://src/_base/page_base.html" %}
+
+{% block head_title %}{{tag}}{% endblock %}
+
+{% block main_inner %}
+{{ super() }}
+
+<article class="post_content_block markdown-body">
+  <h1>Tag: {{tag}}</h1>
+  <ul class="post_title_list">
+    {% for post_meta in post_meta_array %}
+    <li>
+    <a href="{{posts_post_url(post_meta.dir_name, post_meta.index_file)}}">{{post_meta.title}}</a> {{' - ' + post_meta.create_moment.format(post_date_format) if not is_nan(post_meta.create_moment.unix()) else ''}}
+    </li>
+    {% endfor %}
+  </ul>
+</article>
+{% endblock %}

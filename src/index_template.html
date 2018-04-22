@@ -1,0 +1,51 @@
+{% extends "root://src/_base/page_base.html" %}
+
+{% block head_meta %}
+{{ super() }}
+<meta http-equiv="refresh" content="5;url={{posts_url}}">
+{% endblock %}
+{% block head_title %}Redirecting to Posts{% endblock %}
+
+{% block main_inner %}
+<article class="markdown-body">
+  <h1>Redirecting to <a href="{{posts_url}}">Posts</a> in <span id="seconds">5 seconds</span></h1>
+</article>
+{% endblock %}
+
+{% block bottom_scripts %}
+<script type="text/javascript">
+(function() {
+var is_ie = navigator.appName.indexOf("Explorer") > -1;
+
+var seconds_element = document.getElementById('seconds');
+
+var seconds = is_ie ? seconds_element.innerText : seconds_element.textContent;
+
+seconds = parseInt(seconds);
+
+function redirect() {
+    seconds--;
+
+    if (seconds < 0) {
+        // If two seconds after the redirecting time,
+        // it means `http-equiv="refresh"` above not works.
+        if (seconds <= -2) {
+            // Use JS to redirect
+            location.href = '{{posts_url}}';
+        }
+    }
+    else {
+        var seconds_text = seconds + ' ' + (seconds <= 1 ? 'second' : 'seconds');
+
+        if (is_ie) {
+            seconds_element.innerText = seconds_text;
+        } else {
+            seconds_element.textContent = seconds_text;
+        }
+    }
+}
+
+setInterval(redirect, 1000);
+})();
+</script>
+{% endblock %}

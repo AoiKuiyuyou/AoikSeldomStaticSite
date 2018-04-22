@@ -1,0 +1,13 @@
+/*
+!/api
+!/libs_outer
+!/src
+!/tools
+!/.gitignore
+!/config.js
+!/gulpfile.js
+!/LICENSE.txt
+!/package.json
+!/package.src.json
+!/README.md
+!/README.src.md

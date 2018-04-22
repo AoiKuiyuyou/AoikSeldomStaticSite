@@ -1,0 +1,117 @@
+{% extends "root://src/_base/page_base.html" %}
+
+<!-- head_title -->
+{% block head_title %}{{title}}{% endblock %}
+<!-- head_title -->
+
+<!-- head_links -->
+{% block head_links %}
+{{ super() }}
+<link rel="stylesheet" href="{{toastr_css_url}}">
+<link rel="stylesheet" href="{{highlight_css_url}}">
+{% endblock %}
+<!-- head_links -->
+
+<!-- main_inner -->
+{% block main_inner %}
+  {{ super() }}
+
+  <!-- post_info -->
+  {% block post_info %}
+  <div class="post_info_block">
+    <div class="tags_block">
+    {% for tag in tags %}
+    <a class="tag" href="{{tags_tag_url(tag)}}">{{tag}}</a>
+    {% endfor %}
+    </div>
+    <div class="fields_block">
+      <span class="author">{{author}},</span>
+      <span class="create_time">{{moment(create_time).format(post_date_format)}}</span>
+      {% if update_time %}
+      <span class="update_time">(updated on {{moment(update_time).format(post_date_format)}})</span>
+      {% endif %}
+    </div>
+  </div>
+  {% endblock %}
+  <!-- post_info -->
+
+  <!-- post_content -->
+  {% block post_content %}
+  <!-- `v-pre` aims to skip Vue parsing -->
+  <article v-pre class="post_content_block markdown-body">
+  {{$$body_data}}
+  </article>
+  {% endblock %}
+  <!-- post_content -->
+
+  {% raw %}
+  <!-- Special syntax below is for Vue rendering on the client side -->
+  <div v-cloak id="post_comments_block" class="post_comments_block">
+    <p class="title">Comments:</p>
+    <div class="write_comment_block">
+      <div class="comment_info_block">
+        <input v-model="commenter_name" class="commenter_name" placeholder="Your name"></input>
+        <div class="replyto_block">
+          <span>Reply to:</span>
+          <select v-model="replyto_comment_id">
+             <!-- `0` is a special value meaning no replyto -->
+             <option disabled value="0"></option>
+             <option v-for="comment_id in comment_ids" :value="comment_id">{{comment_id}}</option>
+          </select>
+        </div>
+      </div>
+      <textarea v-model="comment_content" class="comment_content" placeholder="Comment"></textarea>
+      <div><input v-on:click="comment_submit_button_on_click" class="submit_button" type="button" value="Submit"></input></div>
+    </div>
+    <ul>
+        <li v-for="comment_info in comment_infos" v-bind:class="comment_info.is_admin ? 'is_admin' : ''">
+            <a v-bind:id="'comment-' + comment_info.comment_id"
+              v-bind:href="'#comment-' + comment_info.comment_id" class="comment_id">{{comment_info.comment_id}}</a>
+            <div class="comment_content">{{comment_info.comment_content}}</div>
+            <div class="comment_info">
+              <span class="commenter_name">{{comment_info.commenter_name}}</span>
+              <span class="create_time">{{comment_info.create_time}}</span>
+              <template v-if="comment_info.replyto_comment_id > 0">
+              <span>to <a v-bind:href="'#comment-' + comment_info.replyto_comment_id">comment-{{comment_info.replyto_comment_id}}</a></span>
+              </template>
+              <a v-bind:data-comment-id="comment_info.comment_id" v-on:click="comment_reply_button_on_click" class="reply_button" href="#post_comments_block">Reply to this</a>
+            </div>
+        </li>
+    </ul>
+  </div>
+  {% endraw %}
+
+  <!-- post_toc -->
+  {% block post_toc %}
+  <div id="post_toc_block" class="post_toc_block is_hidden">
+    <a v-on:click="post_toc_hide_link_on_click" data-shown-text="Hide" data-hidden-text="TOC" class="hide_link" href="javascript:void(0)">TOC</a>
+    <span class="title">Contents</span>
+  </div>
+  {% endblock %}
+  <!-- post_toc -->
+
+  <!-- back_to_top -->
+  <div id="back_to_top_block" class="back_to_top_block is_hidden">
+    <a v-on:click="back_to_top_button_on_click">
+      <div class="arrow_shape">
+        <div class="arrow_head"></div>
+        <div class="arrow_body"></div>
+      </div>
+    </a>
+  </div>
+  <!-- back_to_top -->
+
+  <div id="post_id" style="display: none;">{{post_id}}</div>
+{% endblock %}
+<!-- main_inner -->
+
+<!-- bottom_scripts -->
+{% block bottom_scripts %}
+{{ super() }}
+<script type="text/javascript" src="{{jquery_js_url}}"></script>
+<script type="text/javascript" src="{{vue_js_url}}"></script>
+<script type="text/javascript" src="{{toastr_js_url}}"></script>
+<script type="text/javascript" src="{{highlight_js_url}}"></script>
+<script type="text/javascript" src="{{post_js_url}}"></script>
+{% endblock %}
+<!-- bottom_scripts -->

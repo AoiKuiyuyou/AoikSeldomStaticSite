@@ -1,0 +1,744 @@
+/* Fonts */
+@font-face
+{
+	font-family: BerkshireSwash;
+
+	src: url(/blog/libs_outer/fonts/BerkshireSwash/BerkshireSwash.ttf);
+}
+
+@font-face
+{
+	font-family: Jura;
+
+	src: url(/blog/libs_outer/fonts/Jura/Jura.ttf);
+}
+
+@font-face
+{
+	font-family: AlegreyaSans;
+
+	src: url(/blog/libs_outer/fonts/AlegreyaSans/AlegreyaSans.ttf);
+}
+
+body,
+html,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+header,
+footer,
+nav,
+main,
+section,
+article,
+p,
+pre,
+form,
+blockquote,
+fieldset
+{
+	display: block;
+
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+}
+
+input,
+span,
+a
+{
+	-webkit-box-sizing: border-box;
+	        box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+}
+
+ul,
+ol
+{
+	list-style: none;
+}
+
+a
+{
+	text-decoration: none;
+}
+
+/* Vue will remove this attribute after rendering is done */
+[v-cloak]
+{
+	display: none;
+}
+
+body
+{
+	margin: 0;
+	padding: 0;
+
+	border: 0;
+	/* 1KZD5 white */
+	background-color: #EFEFEF;
+}
+
+@media screen and (max-width: 250px)
+{
+	body
+	{
+		word-break: break-all;
+	}
+}
+
+header
+{
+	display: relative;
+	overflow: hidden;
+
+	z-index: 1000;
+
+	width: 100%;
+	height: 70px;
+	margin-top: 20px;
+	padding-right: 5%;
+	padding-left: 5%;
+	/* brown */
+
+	background: #886054;
+}
+
+header .logo_block
+{
+	float: left;
+
+	height: 100%;
+
+	text-decoration: none;
+	word-break: keep-all;
+}
+
+header .logo_block .logo_text
+{
+	display: block;
+
+	position: relative;
+	top: 50%;
+
+	-webkit-transform: translateY(-54%);
+	        transform: translateY(-54%);
+	text-decoration: none;
+
+	color: white;
+
+	font-family: BerkshireSwash, sans-serif;
+	font-size: 4.6em;
+}
+
+header .nav_block
+{
+	float: right;
+	overflow: hidden;
+
+	width: auto;
+	height: 100%;
+}
+
+@media screen and (max-width: 800px)
+{
+	header .nav_block
+	{
+		position: absolute;
+		top: 100px;
+		left: 0;
+
+		width: 100%;
+		height: 50px;
+	}
+}
+
+header .nav_block .nav_table
+{
+	display: table;
+
+	width: 100%;
+	height: 100%;
+}
+
+header .nav_block .nav_table a
+{
+	display: table-cell;
+	/* If parent block has a determined width, `table-cell` blocks get equal
+	 * width by dividing the width of their parent. `width: 130px` below will
+	 * be ignored in this case.
+	 * If parent block has no determined width (e.g. when `float: right` is
+	 * applied to `.nav_block` thus the width of `.nav_table` is not determined)
+	 * , `table-cell` blocks get a fit-to-contain width, or a specified width.
+	 * `width: 130px` below will be applied in this case.
+	 */
+
+	width: 130px;
+	height: 100%;
+	/* `display: table-cell` and `vertical-align: middle` work together to
+	 * vertically center contained content.
+	 */
+
+	vertical-align: middle;
+	text-decoration: none;
+
+	color: white;
+	background-color: inherit;
+
+	font-family: Jura, sans-serif;
+	font-size: 2em;
+}
+
+@media screen and (max-width: 420px)
+{
+	header .nav_block .nav_table a
+	{
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-width: 320px)
+{
+	header .nav_block .nav_table a
+	{
+		font-size: 1em;
+	}
+}
+
+@media screen and (max-width: 220px)
+{
+	header .nav_block .nav_table a
+	{
+		font-size: .7em;
+	}
+}
+
+@media screen and (max-width: 170px)
+{
+	header .nav_block .nav_table a
+	{
+		font-size: .5em;
+	}
+}
+
+@media screen and (max-width: 800px)
+{
+	header .nav_block .nav_table a
+	{
+		color: grey;
+	}
+}
+
+header .nav_block .nav_table a:hover,
+header .nav_block .nav_table a:active
+{
+	/* Use different background and font colors to highlight hover/active link.
+	 * Use the same background color as at 1KZD5.
+     */
+	color: black;
+	/* white */
+	background-color: #EFEFEF;
+}
+
+header .nav_block .nav_table a.current
+{
+	/* Use fixed color for current section's link.
+     * Put this rule last to override the hover/active color rule above.
+     */
+	/* orange */
+	color: #FFB36A;
+}
+
+header .nav_block .nav_table a span
+{
+	/* Do not use `height: 100%` otherwise contained content will not appear
+	 * vertically aligned. Instead just get a fit-to-contain height, and let
+	 * the parent vertically center this block.
+	 */
+	/* `display: block`, `width: 100%`, and `text-align: center` work together
+	 * to horizontally center contained content.
+	 */
+	display: block;
+
+	width: 100%;
+
+	text-align: center;
+	word-break: keep-all;
+}
+
+main
+{
+	width: 100%;
+	min-height: 400px;
+	margin-top: 100px;
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 20px;
+	padding-bottom: 200px;
+	padding-left: 20px;
+}
+
+
+@media screen and (min-width: 820px)
+{
+	main
+	{
+		width: 800px;
+	}
+}
+
+main .breadcrumbs_block
+{
+	/* Center horizontall */
+	margin-right: auto;
+	margin-left: auto;
+
+	color: black;
+	/* grey */
+	border-bottom: 1px solid #B9B9B9;
+}
+
+main .breadcrumbs_block,
+main .breadcrumbs_block a,
+main .breadcrumbs_block a:hover
+{
+	/* blue */
+	color: #4078C0;
+}
+
+main .breadcrumbs_block a:hover
+{
+	text-decoration: underline;
+}
+
+main .post_info_block
+{
+	padding-top: 5px;
+}
+
+main .post_info_block:after
+{
+	/* Make `post_info_block`'s height extends to contain floating tags */
+	display: block;
+	clear: both;
+
+	content: '';
+}
+
+main .post_info_block .tags_block
+{
+	float: right;
+	overflow: hidden;
+
+	max-width: 50%;
+}
+
+main .post_info_block .tags_block .tag
+{
+	display: inline-block;
+	float: left;
+
+	margin-bottom: 5px;
+	margin-left: 5px;
+	padding: 1px 6px 3px 6px;
+
+	color: white;
+	border-radius: 5px;
+	/* green */
+	background-color: rgb(114, 164, 0);
+}
+
+main .post_info_block .fields_block
+{
+	margin: 0;
+	margin-left: 5px;
+	padding: 0;
+	/* grey */
+
+	color: #868686;
+
+	font-family: AlegreyaSans, sans-serif;
+	font-size: 1.4em;
+	font-style: italic;
+}
+
+main .post_content_block
+{
+	margin-top: 30px;
+}
+
+main .post_content_block h1
+{
+	margin: 0;
+
+	font-size: 2.5em;
+}
+
+/* `/posts`, `/tags`, `/tags/_x_` */
+main .post_content_block .post_title_list li
+{
+	margin-top: 20px;
+}
+
+/* `/tags`, `/tags/_x_` */
+main .post_content_block .tag_title
+{
+	margin-top: 40px;
+}
+
+@-webkit-keyframes heading_highlight
+{
+	from
+	{
+		background: yellow;
+	}
+
+	to
+	{
+		background: inherit;
+	}
+}
+
+@keyframes heading_highlight
+{
+	from
+	{
+		background: yellow;
+	}
+
+	to
+	{
+		background: inherit;
+	}
+}
+
+main .post_content_block h1:target,
+main .post_content_block h2:target,
+main .post_content_block h3:target,
+main .post_content_block h4:target,
+main .post_content_block h5:target,
+main .post_content_block h6:target
+{
+	-webkit-animation: heading_highlight 1s ease;
+	        animation: heading_highlight 1s ease;
+}
+
+main .post_content_block pre
+{
+	/* grey */
+	background-color: #E6E6E6;
+}
+
+main .post_comments_block
+{
+	margin-top: 100px;
+}
+
+main .post_comments_block .title
+{
+	font-size: 3em;
+}
+
+@media screen and (max-width: 300px)
+{
+	main .post_comments_block .title
+	{
+		font-size: 2em;
+	}
+}
+
+@media screen and (max-width: 250px)
+{
+	main .post_comments_block .title
+	{
+		font-size: 1.5em;
+	}
+}
+
+@media screen and (max-width: 200px)
+{
+	main .post_comments_block .title
+	{
+		font-size: 1.2em;
+	}
+}
+
+@media screen and (max-width: 150px)
+{
+	main .post_comments_block .title
+	{
+		font-size: 1em;
+	}
+}
+
+main .post_comments_block .write_comment_block .comment_info_block
+{
+	width: 100%;
+}
+
+main .post_comments_block .write_comment_block .comment_info_block
+	.commenter_name
+{
+	width: 50%;
+	padding: 2px;
+
+	border-width: 1px;
+	border-style: solid;
+	/* grey */
+	border-color: #A9A9A9;
+}
+
+main .post_comments_block .write_comment_block .comment_info_block
+	.replyto_block
+{
+	float: right;
+}
+
+main .post_comments_block .write_comment_block .comment_content
+{
+	width: 100%;
+	height: 100px;
+	margin-top: 5px;
+}
+
+main .post_comments_block .write_comment_block .submit_button
+{
+	display: inline-block;
+
+	padding: 6px 20px;
+
+	cursor: pointer;
+	text-align: center;
+
+	border-radius: 8px;
+	outline: none;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+	        box-shadow: 0 1px 2px rgba(0,0,0,.2);
+
+	font-size: 1em;
+}
+
+main .post_comments_block ul li
+{
+	margin-top: 30px;
+	padding-left: 30px;
+
+	border-left-width: 3px;
+	border-left-style: solid;
+	border-left-color: green;
+}
+
+main .post_comments_block ul li.is_admin
+{
+	border-left-color: red;
+}
+
+main .post_comments_block ul li .comment_id
+{
+	float: left;
+
+	margin-top: -5px;
+	margin-left: -25px;
+
+	font-size: 1em;
+}
+
+main .post_comments_block ul li .comment_content
+{
+	white-space: pre-wrap;
+
+	font-size: 1.5em;
+}
+
+main .post_comments_block ul li .comment_info
+{
+	margin-top: 10px;
+}
+
+main .post_comments_block ul li .comment_info .commenter_name
+{
+	font-weight: bold;
+}
+
+main .post_comments_block ul li .comment_info .create_time
+{
+	margin-left: 5px;
+}
+
+main .post_comments_block ul li .comment_info .reply_button
+{
+	margin-left: 5px;
+}
+
+main .post_toc_block
+{
+	position: fixed;
+	right: 0;
+	bottom: 0;
+
+	padding: 5px 0 5px 0;
+
+	border-radius: 5px;
+	background-color: yellow;
+
+	font-size: .8em;
+}
+
+main .post_toc_block.is_hidden
+{
+	width: 42px;
+	height: 30px;
+}
+
+main .post_toc_block .hide_link
+{
+	position: absolute;
+	left: 9px;
+
+	font-size: 1em;
+}
+
+main .post_toc_block .hide_link,
+main .post_toc_block .hide_link:visited,
+main .post_toc_block .hide_link:hover,
+main .post_toc_block .hide_link:active
+{
+	text-decoration: none;
+}
+
+main .post_toc_block .title
+{
+	display: block;
+
+	margin-bottom: 8px;
+
+	text-align: center;
+
+	font-size: 1.4em;
+	font-weight: bold;
+}
+
+main .post_toc_block.is_hidden .title
+{
+	display: none;
+}
+
+main .post_toc_block .toc_list
+{
+	overflow: auto;
+
+	min-width: 30vw;
+	max-width: 50vw;
+	max-height: 40vh;
+	padding-left: 20px;
+
+	font-size: 1.1em;
+}
+
+main .post_toc_block.is_hidden .toc_list
+{
+	display: none;
+}
+
+main .post_toc_block .toc_list li
+{
+	margin-bottom: 5px;
+}
+
+main .post_toc_block .toc_list li a,
+main .post_toc_block .toc_list li a:visited
+{
+	text-decoration: none;
+	/* blue */
+
+	color: #4078C0;
+
+	font-weight: bold;
+}
+
+main .post_toc_block .toc_list li a:hover,
+main .post_toc_block .toc_list li a:active
+{
+	text-decoration: underline;
+}
+
+main .back_to_top_block
+{
+	position: fixed;
+	z-index: 1000;
+	bottom: 0;
+	left: 0;
+
+	width: 30px;
+	height: 30px;
+	/* brown */
+
+	background-color: #886054;
+}
+
+main .back_to_top_block.is_hidden
+{
+	display: none;
+}
+
+main .back_to_top_block .arrow_shape
+{
+	margin-top: -5px;
+}
+
+main .back_to_top_block .arrow_head
+{
+	width: 0;
+	height: 0;
+	margin: 0 auto;
+
+	border: 10px solid transparent;
+	/* white */
+	border-bottom-color: #EFEFEF;
+}
+
+main .back_to_top_block .arrow_body
+{
+	top: 15px;
+
+	width: 8px;
+	height: 10px;
+	margin: 0 auto;
+	/* white */
+
+	background-color: #EFEFEF;
+}
+
+footer
+{
+	width: 100%;
+	margin-right: auto;
+	margin-bottom: 50px;
+	margin-left: auto;
+
+	text-align: center;
+
+	font-style: italic;
+}
+
+@media screen and (min-width: 820px)
+{
+	footer
+	{
+		width: 800px;
+	}
+}

@@ -1,0 +1,53 @@
+// This file is in JSON5 fortmat.
+// Will be parsed to `package.json` in JSON format.
+{
+	"name": "AoikSeldomStaticSite",
+	"version": "0.0.1",
+	"description": "A static site generator.",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/AoiKuiyuyou/AoikSeldomStaticSite"
+	},
+	"author": "Aoi.Kuiyuyou",
+	"license": "MIT",
+	"devDependencies": {
+		// gulp
+		"gulp": "3.9.1",
+		// gulp utility
+		"gulp-util": "3.0.8",
+		// Run shell command
+		"gulp-shell": "0.6.5",
+		// Rename items in gulp pipe
+		"gulp-rename": "1.2.2",
+		// Ignore items in gulp pipe
+		"gulp-ignore": "2.0.2",
+		// Accept only changed items in gulp pipe
+		"gulp-changed": "3.2.0",
+		// Find file paths
+		"glob": "7.1.2",
+		// Delete files
+		"del": "3.0.0",
+		// Merge objects
+		"merge": "1.2.0",
+		// Handle datetime
+		"moment": "2.22.1",
+		// Make directories
+		"mkdirp": "0.5.1",
+		// Parse JSON5
+        "json5": "0.5.1",
+		// Parse YAML
+		"js-yaml": "3.11.0",
+		// Render markdown to HTML
+		"marked": "0.3.19",
+		// Render nunjucks template
+		"nunjucks": "3.1.2",
+        // Tidy JS
+		"gulp-jsbeautifier": "2.1.2",
+        // Lint JS
+        "gulp-eslint": "4.0.2",
+		// Add vendor prefixes to CSS properties
+		"gulp-autoprefixer": "5.0.0",
+		// Tidy CSS
+		"gulp-csscomb": "3.0.8",
+	}
+}

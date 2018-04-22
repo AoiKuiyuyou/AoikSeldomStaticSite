@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- head -->
+{% block head %}
+<head>
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117972998-1"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-117972998-1');
+  </script>
+  <!-- Google Analytics -->
+
+  <!-- head_meta -->
+  {% block head_meta %}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  {% endblock %}
+  <!-- head_meta -->
+
+  <!-- head_title -->
+  <title>{% block head_title %}{% endblock %}</title>
+  <!-- head_title -->
+
+  <!-- head_links -->
+  {% block head_links %}
+  <link rel="stylesheet" href="{{bootstrap_css_url}}">
+  <link rel="stylesheet" href="{{github_markdown_css_url}}">
+  <link rel="stylesheet" href="{{base_css_url}}">
+  {% endblock %}
+  <!-- head_links -->
+</head>
+{% endblock %}
+<!-- head -->
+
+<body>
+<div id="vue_app">
+
+<!-- header -->
+{% block header %}
+<header>
+  <!-- header_inner -->
+  {% block header_inner %}
+  <!-- logo -->
+  <a class="logo_block" href="/"><span class="logo_text">Aoik</span></a>
+  <!-- nav -->
+  <nav class="nav_block">
+    <div class="nav_table">
+      <a class="{{'current' if nav_current == nav_current_v_posts else ''}}" href="{{posts_url}}"><span>Posts</span></a>
+      <a class="{{'current' if nav_current == nav_current_v_tags else ''}}" href="{{tags_url}}"><span>Tags</span></a>
+      <a target="_blank" href="{{aoik_github_url}}"><span>Github</span></a>
+      <a target="_blank" href="{{aoik_resume_url}}"><span>Resume</span></a>
+    </div>
+  </nav>
+  {% endblock %}
+  <!-- header_inner -->
+</header>
+{% endblock %}
+<!-- header -->
+
+<!-- main -->
+{% block main %}
+<main>
+  <!-- main_inner -->
+  {% block main_inner %}
+
+  <!-- breadcrumbs -->
+  {% block breadcrumbs %}
+  <div class="breadcrumbs_block">
+    {% for breadcrumb in breadcrumbs %}
+    <a href="{{breadcrumb.split('|')[1]}}">{{breadcrumb.split('|')[0]}}</a>
+    {% if not loop.last %}
+    <span class="sep">&gt;</span>
+    {% endif %}
+    {% endfor %}
+  </div>
+  {% endblock %}
+  <!-- breadcrumbs -->
+
+  {% endblock %}
+  <!-- main_inner -->
+</main>
+{% endblock %}
+<!-- main -->
+
+<!-- back_to_top -->
+
+<!-- footer -->
+{% block footer %}
+<footer>
+  <!-- footer_inner -->
+  {% block footer_inner %}
+  <span>This blog is powered by my own project <a href="https://github.com/AoiKuiyuyou/AoikSeldomStaticSite">AoikSeldomStaticSite</a>.</span>
+  {% endblock %}
+  <!-- footer_inner -->
+</footer>
+{% endblock %}
+<!-- footer -->
+
+<!-- bottom_scripts -->
+{% block bottom_scripts %}
+{% endblock %}
+<!-- bottom_scripts -->
+
+</div>
+<!-- vue_app -->
+
+</body>
+</html>

@@ -1,0 +1,12 @@
+/*
+!/src
+!/tools
+!/.gitignore
+!/requirements.txt
+!/setup.cfg
+!/setup.py
+*.cache
+*.egg-info
+*.pyc
+__pycache__
+.pytest_cache
