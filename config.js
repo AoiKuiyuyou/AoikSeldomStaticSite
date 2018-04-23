@@ -44,6 +44,8 @@ var CONFIG = {
 
 	SITE_ROOT: '/blog/',
 
+	SITE_ROOT_URL: '/blog',
+
 	// Loaded items dict.
 	// Keys are URIs.
 	// Values are loaded items.

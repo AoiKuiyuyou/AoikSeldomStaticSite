@@ -36,6 +36,7 @@ function base_context_factory() {
 		post_js_url: SITE_ROOT + 'libs_inner/base/post.js',
 		nav_current_v_posts: 'posts',
 		nav_current_v_tags: 'tags',
+		site_root_url: config.SITE_ROOT_URL,
 		aoik_github_url: '' +
 			'https://github.com/AoiKuiyuyou/Aoik/blob/master/README.md',
 		aoik_resume_url: 'http://aoikuiyuyou.github.io/me.html',
