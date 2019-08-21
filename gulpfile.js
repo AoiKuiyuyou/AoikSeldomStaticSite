@@ -103,7 +103,7 @@ gulp.task('compile_package_src_json', function () {
 /**
  * Install dependency packages.
  */
-gulp.task('npm_install', ['compile_package_src_json'], function () {
+gulp.task('npm_install', gulp.series('compile_package_src_json', function () {
 	var gulp_changed = require('gulp-changed');
 	var gulp_shell = require('gulp-shell');
 	var gulp_util = require('gulp-util');
@@ -134,13 +134,13 @@ gulp.task('npm_install', ['compile_package_src_json'], function () {
 		.pipe(gulp.dest(changed_dir));
 
 	return stream;
-});
+}));
 
 
 /**
  * Copy inner libs to build directory.
  */
-gulp.task('copy_libs_inner', ['npm_install'], function () {
+gulp.task('copy_libs_inner', gulp.series('npm_install', function () {
 	assert(CONFIG.LIBS_INNER_SRC_GLOB,
 		'Error: Missing config `LIBS_INNER_SRC_GLOB`');
 
@@ -151,13 +151,13 @@ gulp.task('copy_libs_inner', ['npm_install'], function () {
 		.pipe(gulp.dest(CONFIG.LIBS_INNER_DEST_DIR));
 
 	return stream;
-});
+}));
 
 
 /**
  * Copy outer libs to build directory.
  */
-gulp.task('copy_libs_outer', ['npm_install'], function () {
+gulp.task('copy_libs_outer', gulp.series('npm_install', function () {
 	assert(CONFIG.LIBS_OUTER_SRC_GLOB,
 		'Error: Missing config `LIBS_OUTER_SRC_GLOB`');
 
@@ -168,13 +168,13 @@ gulp.task('copy_libs_outer', ['npm_install'], function () {
 		.pipe(gulp.dest(CONFIG.LIBS_OUTER_DEST_DIR));
 
 	return stream;
-});
+}));
 
 
 /**
  * Build from metadata files.
  */
-gulp.task('build_from_metadata', ['npm_install'], function () {
+gulp.task('build_from_metadata', gulp.series('npm_install', function (done) {
 	var path_util = require('./tools/util/pathutil');
 	var path_abs = path_util.path_abs;
 
@@ -255,22 +255,26 @@ gulp.task('build_from_metadata', ['npm_install'], function () {
 
 		log(`# ===== Build stage ${build_stage} =====`);
 	});
-});
+
+	done();
+}));
 
 
 /**
  * Clean build directory.
  */
-gulp.task('clean', function () {
+gulp.task('clean', function (done) {
 	log('\n# ----- Clean build directory -----');
 
 	var del = require('del');
 
 	del.sync([
-		CONFIG.BUILD_DIR + '/**/*'
+		CONFIG.RELEASE_DIR + '/**/*'
 	]);
 
 	log('# ===== Clean build directory =====');
+
+	done();
 });
 
 
@@ -305,7 +309,7 @@ gulp.task('tidy_js', function () {
 /**
  * Lint JS files.
  */
-gulp.task('lint_js', ['npm_install'], function () {
+gulp.task('lint_js', gulp.series('npm_install', function () {
 	var gulp_eslint = require('gulp-eslint');
 
 	var base_dir = './';
@@ -329,13 +333,13 @@ gulp.task('lint_js', ['npm_install'], function () {
 		.pipe(gulp_eslint.failAfterError());
 
 	return stream;
-});
+}));
 
 
 /**
  * Tidy JSON files.
  */
-gulp.task('tidy_json', ['npm_install'], function () {
+gulp.task('tidy_json', gulp.series('npm_install', function () {
 	var gulp_changed = require('gulp-changed');
 	var make_stream = require('./tools/util/streamutil').make_stream;
 
@@ -370,13 +374,13 @@ gulp.task('tidy_json', ['npm_install'], function () {
 		.pipe(gulp.dest(changed_dir));
 
 	return stream;
-});
+}));
 
 
 /**
  * Add vendor prefixes to CSS properties.
  */
-gulp.task('prefix_css', ['npm_install'], function () {
+gulp.task('prefix_css', gulp.series('npm_install', function () {
 	var gulp_autoprefixer = require('gulp-autoprefixer');
 	var gulp_changed = require('gulp-changed');
 	var make_stream = require('./tools/util/streamutil').make_stream;
@@ -407,13 +411,13 @@ gulp.task('prefix_css', ['npm_install'], function () {
 		.pipe(gulp.dest(changed_dir));
 
 	return stream;
-});
+}));
 
 
 /**
  * Tidy CSS files.
  */
-gulp.task('tidy_css', ['npm_install', 'prefix_css'], function () {
+gulp.task('tidy_css', gulp.series('npm_install', 'prefix_css', function () {
 	var gulp_changed = require('gulp-changed');
 	var make_stream = require('./tools/util/streamutil').make_stream;
 	var gulp_csscomb = require('gulp-csscomb');
@@ -444,24 +448,22 @@ gulp.task('tidy_css', ['npm_install', 'prefix_css'], function () {
 		.pipe(gulp.dest(changed_dir));
 
 	return stream;
-});
+}));
 
 
 /**
  * Build static site files.
  */
-gulp.task('build', [
-		'clean',
-		'npm_install',
-		'build_from_metadata',
-		'copy_libs_inner',
-		'copy_libs_outer'
-	],
-	(function () {})
-);
+gulp.task('build', gulp.series(
+	'clean',
+	'npm_install',
+	'build_from_metadata',
+	'copy_libs_inner',
+	'copy_libs_outer'
+));
 
 
 /**
  * Default to build.
  */
-gulp.task('default', ['build'], (function () {}));
+gulp.task('default', gulp.series('build'));
