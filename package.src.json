@@ -2,7 +2,7 @@
 // Will be parsed to `package.json` in JSON format.
 {
 	"name": "AoikSeldomStaticSite",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "A static site generator.",
 	"repository": {
 		"type": "git",
