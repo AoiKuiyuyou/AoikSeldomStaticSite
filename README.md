@@ -11,19 +11,21 @@ Features:
 - Be responsive to different screen sizes.
 
 Tested woring with:
-- Node.js 8.11.1
+- Node.js 10.16.0
 - Python 3.6.5, 2.7.14
 
 ## Table of Contents
 - [Usage](#usage)
+  - [Download the demo project](#download-the-demo-project)
   - [Set up the static site generator](#set-up-the-static-site-generator)
-    - [Set up JavaScript dependency packages](#set-up-javascript-dependency-packages)
+    - [Install JavaScript dependency packages](#install-javascript-dependency-packages)
     - [Build static files](#build-static-files)
   - [Set up the API server](#set-up-the-api-server)
     - [Create database and user](#create-database-and-user)
-    - [Set up Python dependency packages](#set-up-python-dependency-packages)
+    - [Install Python dependency packages](#install-python-dependency-packages)
     - [Edit the API server's config file](#edit-the-api-servers-config-file)
     - [Run the API server](#run-the-api-server)
+  - [Serve static files](#serve-static-files)
 - [Developer Usage](#developer-usage)
   - [Tidy JS files](#tidy-js-files)
   - [Lint JS files](#lint-js-files)
@@ -34,27 +36,64 @@ Tested woring with:
 
 ## Usage
 
+### Download the demo project
+Download [the demo project](https://github.com/AoiKuiyuyou/AoikMeSiteSource).
+
 ### Set up the static site generator
 
-#### Set up JavaScript dependency packages
+#### Install JavaScript dependency packages
 Run in the project directory:
 ```
 npm install
 ```
 
-This is the only time `npm install` needs be run manually. This project's gulp
-tasks can detect changes in package.json and run `npm install` automatically.
+This is the only time `npm install` needs to be run manually. This project's
+gulp tasks can detect changes in `package.json` and run `npm install`
+automatically.
 
 #### Build static files
 Run in the project directory:
 ```
 node node_modules/gulp/bin/gulp.js
 ```
+The result static files are inside the `release` directory.
 
-The result static files are inside the "build" directory. They can be served
-by a web server such as Nginx.
+They can be served by a web server such as Nginx. An example Nginx config is
+provided below.
 
-An exmaple nginx.conf file:
+For the comment function to work, the API server needs to be set up.
+
+### Set up the API server
+
+#### Create database and user
+Run in a MySQL client:
+```
+CREATE DATABASE aoiksss DEFAULT CHARACTER SET utf8mb4;
+
+CREATE USER aoiksss@'%' IDENTIFIED BY 'aoiksss';
+
+GRANT ALL ON aoiksss.* TO aoiksss@'%';
+```
+
+#### Install Python dependency packages
+Run in the project directory:
+```
+pip install -r api/requirements.txt
+```
+
+#### Edit the API server's config file
+Edit `api/src/aoikseldomstaticsiteapi/config.py`.
+
+#### Run the API server
+Run in the project directory:
+```
+python api/src/aoikseldomstaticsiteapi/__main__.py
+```
+
+Now the comment function should work.
+
+### Serve static files
+An exmaple `nginx.conf` file:
 ```
 worker_processes  1;
 
@@ -86,6 +125,7 @@ http {
         }
 
         location /blog {
+            # Change this to the project directory's path.
             alias /AoikSeldomStaticSite/build;
 
             index index.html;
@@ -104,38 +144,7 @@ Reload nginx config:
 nginx -s reload
 ```
 
-Then open "http://localhost/blog" in a browser.
-
-For the comment function to work, the API server needs be set up.
-
-### Set up the API server
-
-#### Create database and user
-Run in a MySQL client:
-```
-CREATE DATABASE aoiksss DEFAULT CHARACTER SET utf8mb4;
-
-CREATE USER aoiksss@'%' IDENTIFIED BY 'aoiksss';
-
-GRANT ALL ON aoiksss.* TO aoiksss@'%';
-```
-
-#### Set up Python dependency packages
-Run in the project directory:
-```
-pip install -r api/requirements.txt
-```
-
-#### Edit the API server's config file
-Edit "api/src/aoikseldomstaticsiteapi/config.py".
-
-#### Run the API server
-Run in the project directory:
-```
-python api/src/aoikseldomstaticsiteapi/__main__.py
-```
-
-Now the comment function should work.
+Open `http://localhost/blog` in a browser.
 
 ## Developer Usage
 
@@ -167,6 +176,7 @@ node node_modules/gulp/bin/gulp.js tidy_css
 Run:
 ```
 cd api/tools/waf
+
 python waf.py tidy
 ```
 
@@ -174,5 +184,6 @@ python waf.py tidy
 Run:
 ```
 cd api/tools/waf
+
 python waf.py lint
 ```
